@@ -8,12 +8,11 @@ import {
 
 export const BUILDER_PUBLIC_API_KEY = import.meta.env
   .VITE_BUILDER_PUBLIC_API_KEY
-console.log('BUILDER_PUBLIC_API_KEY', BUILDER_PUBLIC_API_KEY)
 export const BUILDER_MODEL = 'page'
 
-// Use Qwik City's `useBuilderContent` to get your content from Builder.
-// `routeLoader$()` takes an async function to fetch content
-// from Builder with `getContent()`.
+// Qwik Cityの `useBuilderContent` を使って、Builderからコンテンツを取得します。
+// `routeLoader$()` は非同期関数を受け取り、 `getContent()` で Builder からコンテンツを取得します。
+
 export const useBuilderContent = routeLoader$(async ({ url, error }) => {
   const builderContent = await getContent({
     model: BUILDER_MODEL,
@@ -23,22 +22,19 @@ export const useBuilderContent = routeLoader$(async ({ url, error }) => {
       urlPath: url.pathname,
     },
   })
-  // If there's no content, throw a 404.
-  // You can use your own 404 component here
   if (!builderContent) {
     throw error(404, 'File Not Found')
   }
-  // return content fetched from Builder
+  // Builderから取得したコンテンツを返す
   return builderContent
 })
 
 export default component$(() => {
-  // call useBuilderContent() and set content equal to
-  // returned builderContent
+  // useBuilderContent() を呼び出し、返された builderContent と同じ内容を設定する。
   const content = useBuilderContent()
-  // RenderContent uses `content` to
-  // render the content of the given model, here a page,
-  // of your space (specified by the API Key)
+  // RenderContent は `content` を使用して、与えられたモデル（ここではページ）のコンテンツを
+  // レンダリングします（API キーで指定します）。
+
   return (
     <RenderContent
       model={BUILDER_MODEL}
