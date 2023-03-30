@@ -14,6 +14,8 @@ export default component$(() => {
   const diffMinutes = Math.ceil(diff / (1000 * 60))
   const diffSeconds = Math.ceil(diff / 1000)
 
+  const targetDataToValue = date.targetDate.toISOString().split('T')[0]
+
   return (
     <div>
       <div>
@@ -21,7 +23,7 @@ export default component$(() => {
           ターゲット日:
           <input
             type="date"
-            value={date.targetDate.toDateString()}
+            value={targetDataToValue}
             onInput$={(event) => {
               date.targetDate = new Date(event?.target?.value)
             }}
