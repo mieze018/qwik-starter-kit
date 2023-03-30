@@ -34,8 +34,52 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'prefer-spread': 'off',
     'no-case-declarations': 'off',
-    'no-console': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/consistent-type-imports': 'warn',
+    // 未使用のインポートを自動で削除
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
+    // 相対パスのimportを禁止
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['./', '../'],
+      },
+    ],
+    // consoleを禁止
+    'no-console': 'error',
+    // 行間を開ける
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        prev: '*',
+        next: 'export',
+      },
+      {
+        blankLine: 'any',
+        prev: 'export',
+        next: 'export',
+      },
+      {
+        blankLine: 'always',
+        prev: 'import',
+        next: '*',
+      },
+      {
+        blankLine: 'any',
+        prev: 'import',
+        next: 'import',
+      },
+    ],
   },
-};
+}
